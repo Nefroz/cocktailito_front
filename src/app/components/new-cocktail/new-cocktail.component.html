@@ -1,0 +1,122 @@
+<div class="col-lg-12">
+    <form [formGroup]="cocktailsForm">
+      <h3 class="first ssp">
+        Création d'un cocktail
+      </h3>
+      <div class="ui-g ui-fluid">
+
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Nom</div>
+              <input
+                type="text"
+                formControlName="name"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-inputgroup-addon">Alcoolisé</div>
+            <p-radioButton name="isAlcohol" label="Oui" value="1" formControlName="isAlcohol"></p-radioButton> <br>
+            <p-radioButton name="isAlcohol" label="Non" value="0" formControlName="isAlcohol"></p-radioButton>
+
+          </div>
+
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"
+                  ><i class="pi pi-user" style="line-height: 1.25;"></i
+                ></span>
+                <div class="ui-inputgroup-addon">Degré d'alcool</div>
+                <input
+                  type="text"
+                  formControlName="degree"
+                  pInputText
+                  appendTo="body"
+                />
+              </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup-addon">Prix</div>
+            <p-rating formControlName="price" [cancel]="false" stars="3"></p-rating>
+          </div>
+
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup-addon">Difficulté</div>
+            <p-rating formControlName="difficulty" [cancel]="false" stars="3"></p-rating>
+          </div>
+
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup-addon">Volume</div>
+            <p-rating formControlName="volume" [cancel]="false" stars="4"></p-rating>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="info-label">Instructions</label>
+            <textarea
+              [rows]="5"
+              [cols]="30"
+              class="form-control"
+              pInputTextarea
+              autoResize="autoResize"
+              formControlName="instructions"
+            >
+            </textarea>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="info-label">Ingrédients</label>
+            <div
+              class="col-md-12"
+              formArrayName="ingredients"
+              *ngFor="
+                let ingredients of ingredients.controls;
+                let i = index
+              "
+            >
+              <div [formGroupName]="i">
+                <div class="col-md-10 ui-fluid">
+                  <label class="info-label">Ingrédient</label>
+                  <p-dropdown
+                    placeholder="Choisir un ingredient"
+                    emptyFilterMessage="Pas de résultat"
+                    styleClass="w-100"
+                    appendTo="body"
+                    formControlName="ingredients"
+                    [options]="ingredientsLV"
+                    filter="true"
+                  ></p-dropdown>
+                </div>
+              </div>
+
+              <div class="col-md-1">
+                <button class="btn btn-secondary" (click)="removeIngredient(i)">
+                  Supprimer.
+                </button>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-secondary" (click)="addIngredient()">
+                Ajouter.
+              </button>
+            </div>
+          </div>
+
+      </div>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="!cocktailsForm.valid"
+        (click)="createCocktail()"
+      >
+        Créer
+      </button>
+    </form>
+
+  </div>

@@ -1,0 +1,82 @@
+<div class="col-lg-12">
+    <form [formGroup]="contactsForm">
+      <h3 class="first ssp">
+        Contact
+      </h3>
+      <div class="ui-g ui-fluid">
+
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Sujet</div>
+              <input
+                type="text"
+                formControlName="subject"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"
+            ><i class="pi pi-user" style="line-height: 1.25;"></i
+          ></span>
+          <div class="ui-inputgroup-addon">Texte</div>
+          </div>
+            <textarea
+              [rows]="5"
+              [cols]="30"
+              class="form-control"
+              pInputTextarea
+              autoResize="autoResize"
+              formControlName="text"
+            >
+            </textarea>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Laissez nous un email</div>
+              <input
+                type="text"
+                formControlName="emailcontact"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Laissez nous un numéro de téléphone</div>
+              <input
+                type="text"
+                formControlName="telcontact"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+      </div>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="!contactsForm.valid"
+        (click)="createContact()"
+      >
+        Créer
+      </button>
+    </form>
+
+  </div>

@@ -1,0 +1,64 @@
+<div class="col-lg-12">
+    <form [formGroup]="usersForm">
+      <h3 class="first ssp">
+        Inscription
+      </h3>
+      <div class="ui-g ui-fluid">
+
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Pseudo</div>
+              <input
+                type="text"
+                formControlName="pseudo"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Mot de passe (attention en clair pour l'instant!!)</div>
+              <input
+                type="text"
+                formControlName="password"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">E-mail</div>
+              <input
+                type="text"
+                formControlName="email"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+      </div>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="!usersForm.valid"
+        (click)="createUser()"
+      >
+        Créer
+      </button>
+    </form>
+
+  </div>

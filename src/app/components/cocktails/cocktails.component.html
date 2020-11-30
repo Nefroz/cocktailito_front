@@ -1,0 +1,234 @@
+<super-title text="Liste des cocktails" [buttons]="buttons"></super-title>
+
+<div class="tac marg" >
+    <p-selectButton
+      [options]="types"
+      styleClass="primeselect"
+      (onChange)="load()"
+      [(ngModel)]="selectedType"
+    ></p-selectButton>
+  </div>
+
+<p-table [value]="cocktails">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Index</th>
+            <th>Nom</th>
+            <th>Alcoolisé</th>
+            <th>Prix (1-3)</th>
+            <th>Difficulté (1-3)</th>
+            <th>Teneur en alcool</th>
+            <th>Volume (0-3)</th>
+            <th>Validé</th>
+            <th>Autres actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cocktails>
+        <tr>
+            <td class="titles" (click)="showCocktail($event, cocktails)">{{cocktails?.id}}</td>
+            <td class="titles" (click)="showCocktail($event, cocktails)">{{cocktails?.name}}</td>
+            <td class="titles" (click)="showCocktail($event, cocktails)">{{cocktails?.isAlcohol2}}</td>
+            <td class="titles" (click)="showCocktail($event, cocktails)"><p-rating [(ngModel)]="cocktails.price" readonly="true" stars="3" [cancel]="false"></p-rating></td>
+            <td class="titles" (click)="showCocktail($event, cocktails)"><p-rating [(ngModel)]="cocktails.difficulty" readonly="true" stars="3" [cancel]="false"></p-rating></td>
+            <td class="titles" (click)="showCocktail($event, cocktails)">{{cocktails?.degree2}}</td>
+            <td class="titles" (click)="showCocktail($event, cocktails)"><p-rating [(ngModel)]="cocktails.volume" readonly="true" stars="3" [cancel]="false"></p-rating></td>
+            <td class="titles" (click)="switchValid(cocktails)">
+                <div
+                [ngClass]="{
+                  greendot: cocktails?.isValidated,
+                  reddot: !cocktails?.isValidated
+                }"
+              ></div></td>
+            <td><div class="ssp fontweight">
+                <super-button
+                  [text]="'...'"
+                  [background]="'#000000'"
+                  [color]="'#ffffff'"
+                  [icon]="'icon-attachment'"
+                  skin="ecom-btn"
+                  btnSize="btn-sm"
+                  (click)="showDialog($event, cocktails)"
+                ></super-button>
+              </div></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+<p-dialog
+    *ngIf="selected"
+    [(visible)]="displayCocktail"
+    [style]="{ width: '20vw' }"
+    [resizable]="false"
+    [draggable]="false"
+  >
+    <p-header> {{ selected.name }} : plus d'actions. </p-header>
+    <super-button
+      [text]="'Modifier le cocktail'"
+      [background]="'#60CDFF'"
+      [color]="'#ffffff'"
+      [icon]="'icon-attachment'"
+      skin="ecom-btn"
+      btnSize="btn-sm"
+      (click)="showDialogUpdate(selected)"
+    ></super-button>
+    <br />
+    <super-button
+      [text]="'Supprimer le cocktail'"
+      [background]="'#ff6060'"
+      [color]="'#ffffff'"
+      [icon]="'icon-attachment'"
+      skin="ecom-btn"
+      btnSize="btn-sm"
+      (click)="deleteCocktail(selected)"
+    ></super-button>
+    <p-footer> </p-footer>
+  </p-dialog>
+
+
+  <p-dialog [(visible)]="displayCocktailCreate" [style]="{ width: '75vw' }">
+    <div class="container">
+      <div class="row" *ngIf="dialogloaded; else noloaded">
+        <div class="col-lg-12">
+          <form [formGroup]="cocktailsForm">
+            <h3 class="first ssp" *ngIf="action === 'create'">
+              Création d'un cocktail
+            </h3>
+            <h3 class="first ssp" *ngIf="action === 'update'">
+              Modification d'un cocktail
+            </h3>
+            <div class="ui-g ui-fluid">
+
+              <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"
+                    ><i class="pi pi-user" style="line-height: 1.25;"></i
+                  ></span>
+                  <div class="ui-inputgroup-addon">Nom</div>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    pInputText
+                    appendTo="body"
+                  />
+                </div>
+              </div>
+
+              <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup-addon">Alcoolisé</div>
+                <p-radioButton name="isAlcohol" label="Oui" value="1" formControlName="isAlcohol"></p-radioButton> <br>
+                <p-radioButton name="isAlcohol" label="Non" value="0" formControlName="isAlcohol"></p-radioButton>
+
+              </div>
+
+              <div class="ui-g-12 ui-md-6">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"
+                      ><i class="pi pi-user" style="line-height: 1.25;"></i
+                    ></span>
+                    <div class="ui-inputgroup-addon">Degré d'alcool</div>
+                    <input
+                      type="text"
+                      formControlName="degree"
+                      pInputText
+                      appendTo="body"
+                    />
+                  </div>
+              </div>
+
+              <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup-addon">Prix</div>
+                <p-rating formControlName="price" [cancel]="false" stars="3"></p-rating>
+              </div>
+
+              <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup-addon">Difficulté</div>
+                <p-rating formControlName="difficulty" [cancel]="false" stars="3"></p-rating>
+              </div>
+
+              <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup-addon">Volume</div>
+                <p-rating formControlName="volume" [cancel]="false" stars="4"></p-rating>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="info-label">Instructions</label>
+                <textarea
+                  [rows]="5"
+                  [cols]="30"
+                  class="form-control"
+                  pInputTextarea
+                  autoResize="autoResize"
+                  formControlName="instructions"
+                >
+                </textarea>
+              </div>
+
+              <!-- Mettre un formArray d'ingrédients avec un bouton a cocher variation -->
+
+              <!-- <div class="ui-g-12 ui-md-12">
+                <span *ngIf="(name.dirty || name.touched) && name.invalid && name.errors.required">
+                  <br />Nom requis.
+                </span>
+              </div> -->
+
+            </div>
+  
+            <button
+              *ngIf="action === 'update'"
+              class="btn btn-dark"
+              type="submit"
+              [disabled]="!cocktailsForm.valid"
+              (click)="updateCocktail()"
+            >
+              Mettre à jour
+            </button>
+          </form>
+  
+        </div>
+      </div>
+      <ng-template #noloaded>
+        Chargement...
+      </ng-template>
+    </div>
+  </p-dialog>
+
+
+  <p-dialog
+    *ngIf="selected"
+    [(visible)]="displaySingleCocktail"
+    [style]="{ width: '30vw' }"
+    [resizable]="true"
+    [draggable]="true"
+  >
+    <p-header> {{ selected.name }}. </p-header>
+    <br />
+         
+    <div class="ui-g">
+        <div class="ui-g-8 ui-g-nopad">
+            <div class="ui-g-6">Prix: {{selected.price}}</div>
+            <div class="ui-g-6">Difficulté: {{selected.difficulty}}</div>
+            <div class="ui-g-12">Ajouter aux favoris</div>
+            <div class="ui-g-12">Mode préparatoire:
+                {{selected.instructions}}
+            </div>
+            <div class="ui-g-12">Avis:
+              <!-- A ajouter avec les commentaires -->
+                <!-- <li *ngFor="let comment of selected.comments">{{ comment }}</li> -->
+            </div>
+        </div>
+        <div class="ui-g-4">
+            <div class="ui-g-12">
+                Ingrédients:
+            <ul>
+                <li *ngFor="let ingredient of selected.ingredients">{{ ingredient }}</li>
+            </ul>
+            </div>
+            <div class="ui-g-12">
+                Volume:
+                <div>{{selected.volume}}</div>
+            </div>
+        </div>
+    </div>
+    <p-footer> </p-footer>
+  </p-dialog>

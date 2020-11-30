@@ -1,0 +1,56 @@
+<div class="col-lg-12">
+    <form [formGroup]="ressourcesForm">
+      <h3 class="first ssp">
+        Création d'une ressource
+      </h3>
+      <div class="ui-g ui-fluid">
+
+        <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Nom</div>
+              <input
+                type="text"
+                formControlName="name"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"
+                ><i class="pi pi-user" style="line-height: 1.25;"></i
+              ></span>
+              <div class="ui-inputgroup-addon">Type de quantité</div>
+              <input
+                type="text"
+                formControlName="typeofquantity"
+                pInputText
+                appendTo="body"
+              />
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-inputgroup-addon">A Factoriser?</div>
+            <p-radioButton name="toFactorize" label="Oui" value="1" formControlName="toFactorize"></p-radioButton> <br>
+            <p-radioButton name="toFactorize" label="Non" value="0" formControlName="toFactorize"></p-radioButton>
+
+          </div>
+
+      </div>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="!ressourcesForm.valid"
+        (click)="createRessource()"
+      >
+        Créer
+      </button>
+    </form>
+
+  </div>

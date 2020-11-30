@@ -1,0 +1,11 @@
+<div class="row" style="height: 100vh; width: 100%;">
+  <div class="col-md-3">
+    <super-sidebar [display]="true"applicationTitle="cocktailito" [zIndex]="-10" 
+    [navLinks]="navLinks" settingsRoute="/settings" profileRoute="/profile"></super-sidebar>
+  </div>
+  <div class="col-md-9">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
