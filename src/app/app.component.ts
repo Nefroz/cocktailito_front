@@ -12,6 +12,9 @@ import { EntityService } from './services/entity.service';
 export class AppComponent {
   title = 'cocktailito';
 
+  public action:string="signin";
+  public showModalLogin:boolean=false;
+
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
@@ -32,4 +35,14 @@ export class AppComponent {
     { title: 'Magic Bar', icon: 'fas fa-book', click: () => { this.router.navigateByUrl('/'+this.entity+'/magicbar'); } },
     { title: 'Contact', icon: 'fas fa-book', click: () => { this.router.navigateByUrl('/'+this.entity+'/contact'); } },
   ];
+
+  ShowSignIn(){
+    this.action = "signin";
+    this.showModalLogin = true;
+  }
+
+  ShowLogIn(){
+    this.action = "login";
+    this.showModalLogin = true;
+  }
 }

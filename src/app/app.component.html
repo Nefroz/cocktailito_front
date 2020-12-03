@@ -4,8 +4,46 @@
     [navLinks]="navLinks" settingsRoute="/settings" profileRoute="/profile"></super-sidebar>
   </div>
   <div class="col-md-9">
+    <div class="df pt pb">
+      <div class="col-md-9">
+
+      </div>
+      <!-- When handling sessions, copy paste this with a conditional switch to user account / log out -->
+      <div class="col-md-3 df">
+        <button type="button" class="switcher switcher-signup" (click)="ShowSignIn()">
+          S'enregistrer
+          <span class="underline"></span>
+        </button>
+  
+        <button type="button" class="switcher switcher-login" (click)="ShowLogIn()">
+          Se connecter
+          <span class="underline"></span>
+        </button>
+      </div>
+      <!-- To Here -->
+
+    </div>
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+
+<p-dialog
+    [(visible)]="showModalLogin"
+    [style]="{ width: '20vw' }"
+    [resizable]="false"
+    [draggable]="true"
+  >
+    <p-header>
+      <div *ngIf="action === 'signin'">
+        S'enregistrer
+      </div>
+      <div *ngIf="action === 'login'">
+        Se connecter
+      </div>
+    </p-header>
+    Forms
+    <p-footer> </p-footer>
+  </p-dialog>
