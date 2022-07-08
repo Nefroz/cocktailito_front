@@ -33,7 +33,7 @@
     "async": "^3.2.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng-starrating": "^1.0.20",
     "ng2-pdfjs-viewer": "^5.0.7",
     "ngx-avatar": "^3.7.0",
